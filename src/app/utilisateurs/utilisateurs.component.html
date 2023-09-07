@@ -1,1 +1,77 @@
-<p>utilisateurs works!</p>
+<div class="container">
+  <table class=" mt-1 mb-1">
+    <tr>
+      <button class="btn btn-outline-dark "  data-bs-toggle="modal" data-bs-target="#modalUser">
+        Ajouter un nouvel utilisateur
+        <i class="bi bi-plus-square"></i>
+      </button>
+      <div class="modal fade" id="modalUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Nouvel utilisateur</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="username" class="col-form-label">Username</label>
+                  <input type="text" class="form-control" id="username">
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="col-form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="password">
+                  <i class="iconModif" class="bi bi-eye-slash" id="togglePassword"></i>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </tr>
+   </table>
+  <div class="card">
+      <div class="card-header">Liste des utilateurs</div>
+            <div class="card-body">
+              <form>
+                <div class="input-group">
+                  <label class="input-group-text">Mot clé</label>
+                  <input type="text" class="form-control">
+                  <button class="btn btn-outline-dark"><i class="bi bi-search"></i></button>
+                </div>
+              </form>
+                <table class="table table-striped mb-0">
+                    <thead>
+                      <tr>
+                         <th>USERNAME</th>
+                         <th>ROLE</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let u of users">
+                        <td>{{u.username}}</td>
+                        <td>{{u.role}}</td>
+                        <td>
+                          <button class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                          <button class="btn">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+  </div>
+</div>
+
+
+<router-outlet>
+
+</router-outlet>
+

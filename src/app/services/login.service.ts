@@ -6,13 +6,13 @@ import { AppUser } from '../model/utilisateur.model';
   providedIn: 'root'
 })
 export class LoginService {
-  public users! : AppUser[];
+  private users! : AppUser[];
   authenticatedUser : AppUser |undefined;
     constructor() {
       this.users=[
        {userId :  1,username : "user1",password : "passer123",role : ["USER"]},
        {userId : 2,username : "user2",password : "passer123",role : ["USER"]},
-       {userId : 3,username : "admin",password : "passer123",role : ["USER","ADMIN"]},
+       {userId : 3,username : "admin",password : "passer123",role : ["ADMIN"]},
       ];
     }
     public login( username:string,password:string) : Observable<AppUser> {
@@ -30,4 +30,12 @@ export class LoginService {
       localStorage.setItem("authUser",JSON.stringify({username: appUser.username, role:appUser.role,jwt:"JWT_TOKEN"}))
       return of(true);
     }
+
+    public getAllUser() : Observable<AppUser[]>{
+      return of(this.users);
+     }
+     public isAuth(){
+      return this.authenticatedUser != undefined;
+    }
+
 }
