@@ -1,6 +1,5 @@
 export interface AppUser{
-  userId : number;
+  userId : string;
   username : string;
   password : string;
-  role     : string[];
 }

@@ -1,41 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { AppUser } from '../model/utilisateur.model';
+import {UUID} from 'angular2-uuid';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const AUTH_API = 'http://127.0.0.1:8000/api/auth/login';
+const httpOptions = {
+  headers : new HttpHeaders({'Content-type' : 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+
   private users! : AppUser[];
   authenticatedUser : AppUser |undefined;
-    constructor() {
-      this.users=[
-       {userId :  1,username : "user1",password : "passer123",role : ["USER"]},
-       {userId : 2,username : "user2",password : "passer123",role : ["USER"]},
-       {userId : 3,username : "admin",password : "passer123",role : ["ADMIN"]},
-      ];
-    }
-    public login( username:string,password:string) : Observable<AppUser> {
+    constructor(private http : HttpClient) {}
 
-      let appUser=this.users.find(u=>u.username==username);
-      if (!appUser) return throwError(()=>new Error ("Utilisateur introuvable"));
-      if (appUser.password !=password){
-        return throwError(()=>new Error ("Verifiez les informations"))
-      }
-      return of(appUser);
+    connexion(email: string,password: string):Observable<any>{
+      return this.http.post(AUTH_API,{
+        email,
+        password
+      },httpOptions)
     }
-
-    public logUser (appUser : AppUser): Observable<boolean>{
-      this.authenticatedUser = appUser;
-      localStorage.setItem("authUser",JSON.stringify({username: appUser.username, role:appUser.role,jwt:"JWT_TOKEN"}))
-      return of(true);
-    }
-
-    public getAllUser() : Observable<AppUser[]>{
-      return of(this.users);
-     }
-     public isAuth(){
-      return this.authenticatedUser != undefined;
-    }
-
 }

@@ -14,7 +14,7 @@
                   <h4 class="mt-1 mb-5 pb-1">Gestion de stock</h4>
                 </div>
                 <div class="text-danger" *ngIf="errorMessage">{{errorMessage}}</div>
-                <form [formGroup]="userFormGroup" (ngSubmit)="handleLogin()">
+                <form [formGroup]="userFormGroup" (ngSubmit)="onSubmit()">
                   <p>Connexion</p>
 
                   <div class="form-outline mb-4">

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,8 +8,13 @@ import { LoginComponent } from './login/login.component';
 import { ProduitsComponent } from './produits/produits.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { ReportingComponent } from './reporting/reporting.component';
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+import { TokenStorageService } from './services/token-storage.service';
 
 @NgModule({
+  schemas: [
+  CUSTOM_ELEMENTS_SCHEMA,
+  ],
   declarations: [
     AppComponent,
     DashbordComponent,
@@ -22,9 +27,18 @@ import { ReportingComponent } from './reporting/reporting.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+
+
   ],
-  providers: [],
+  providers:  [
+    {
+    provide : HTTP_INTERCEPTORS,
+    useClass : TokenStorageService,
+    multi : true
+}
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

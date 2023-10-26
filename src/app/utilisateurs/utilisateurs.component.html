@@ -13,21 +13,28 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form [formGroup]="registerFormGroup">
                 <div class="mb-3">
-                  <label for="username" class="col-form-label">Username</label>
-                  <input type="text" class="form-control" id="username">
+                  <label for="username" class="col-form-label">Nom et prenom</label>
+                  <input type="text" class="form-control" id="name" formControlName="name">
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="col-form-label">email</label>
+                  <input type="text" class="form-control" id="email" formControlName="email">
                 </div>
                 <div class="mb-3">
                   <label for="password" class="col-form-label">Mot de passe</label>
-                  <input type="password" class="form-control" id="password">
-                  <i class="iconModif" class="bi bi-eye-slash" id="togglePassword"></i>
+                  <input type="password" class="form-control" id="password" formControlName="password">
+                </div>
+                <div class="mb-3">
+                  <label for="confirmation" class="col-form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="confirmation" formControlName="confirmation">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                  <button type="button" class="btn btn-success" (click)="register()">Enregistrer</button>
                 </div>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-              <button type="button" class="btn btn-primary">Enregistrer</button>
             </div>
           </div>
         </div>
@@ -54,7 +61,6 @@
                     <tbody>
                       <tr *ngFor="let u of users">
                         <td>{{u.username}}</td>
-                        <td>{{u.role}}</td>
                         <td>
                           <button class="btn btn-danger">
                             <i class="bi bi-trash"></i>
